@@ -1,10 +1,12 @@
 const express = require('express');
-const { uuid } = require('uuidv4')
+const cors = require('cors');
+const { uuid } = require('uuidv4');
 
 const app = express();
 
 // Definie que todas as rotas vão passar por aqui, convertendo os dados para JSON,
 // pois o epress, por padrão, não está definido para interpretar JSON
+app.use(cors());
 app.use(express.json());
 
 /*
