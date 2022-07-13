@@ -1,10 +1,7 @@
-// import React from 'react';
-// import { render } from 'react-dom';
+import React from 'react';
+import { render } from 'react-dom';
 
-const soma = (a, b) => {
-  return a + b;
-}
+import App from './App'
 
-console.log(soma(5, 3));
-
-//render(<h1>Hello</h1>, document.getElementById('app'))
+// JSX: HTML dentro do javascript
+render(<App/>, document.getElementById('app'));

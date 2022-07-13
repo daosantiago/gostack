@@ -19,6 +19,21 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         }
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: 'style-loader'}, // injeta no html o css interpretado pelo css-loader
+          { loader: 'css-loader'},   // carrega o arquivo css e interpreta as importações dentro dele
+        ]
+      },
+      {
+        test: /.*\.(gif|png|jpe?g)$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: 'file-loader'
+        },
       }
     ]
   }
