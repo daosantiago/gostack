@@ -22,7 +22,8 @@ function App() {
     api.get('projects').then(response => {
       setProjects(response.data);
     })
-  }, [])
+  }, []) // Array vazio (array de dependência) serve pra atualizar somente quando o componente for mostrado pela primeira vez
+         // Se colocar [projects] o Hook vai atualizar o componente sempre que "projects" for alterado
 
   async function handleAddProject() {
     const response = await api.post('projects', {
