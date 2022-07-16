@@ -1,0 +1,13 @@
+No uso de typescript, precisa adicionar os pacotes de declaração de tipos.
+Deve-se adicionar para cada pacote, no formato "yarn add -D @types/<nome_do_pacote>"
+yarn add -D @types
+
+Com typescript, para rodar o server, muda um pouco a sintaxe.
+node src/index.ts => yarn tsc src/index.ts
+
+Necessário executar o comando abaixo para criar o arquivo de configurações do TS
+yarn tsc --init
+Agora é possível executar o comando com somente yarn tsc
+
+Mudar a pasta onde será gerado o arquivo JS convertido:
+no arquivo tsconfig.json, alterar o parâmetro "outDir"
