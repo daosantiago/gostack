@@ -1,0 +1,16 @@
+Primeiros passos de configuração:
+yarn init -y
+yarn add express
+yarn add typescript -D
+yarn tsc --init #Gera o arquivo tsconfig.json que armazena as configurações do typescript
+Dentro de tsconfig.json, configurar o parâmetro outDir: ./dist e rootDir: ./src
+yarn tsc #Cria os arquivos JS dentro da pasta dist
+
+yarn add ts-node-dev -D
+Configurar no package.json o script "dev:server": "ts-node-dev src/server.ts"
+Executar yarn dev:server
+--transpileOnly #Não faz verificação de tipos, pois isso já está sendo feito no vscode
+--ignore-watch node_modules #não verifica a pasta node_modules
+
+Seguir cofnigurações de Eslint, Prettier, e Editor Config
+https://www.notion.so/Padr-es-de-projeto-com-ESLint-Prettier-e-EditorConfig-0b57b47a24724c859c0cf226aa0cc3a7
