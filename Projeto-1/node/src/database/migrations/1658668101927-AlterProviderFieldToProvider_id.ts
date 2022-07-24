@@ -24,7 +24,7 @@ export default class AlterProviderFieldToProviderId1658668101927 implements Migr
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('appointments', 'FQAppointmentProvider');
+    await queryRunner.dropForeignKey('appointments', 'AppointmentProviderFQ');
 
     await queryRunner.dropColumn('appointments', 'provider_id');
 
