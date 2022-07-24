@@ -1,4 +1,4 @@
-# Simple backend introduction
+# Simple frontend introduction
 
 The goal of this litle projects is to introduce the React concepts, such as components, properties, state and immutability.
 
