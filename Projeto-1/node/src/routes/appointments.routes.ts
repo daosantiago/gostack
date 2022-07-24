@@ -3,18 +3,19 @@ import { parseISO } from 'date-fns';
 
 import AppointmentsRepository from "../repositories/AppointmentsRepository";
 import CreateAppointmentService from "../services/CreateAppointmentService";
+import { getCustomRepository } from "typeorm";
 
 const appointementsRouter = Router();
-const appointmentsRepository = new AppointmentsRepository();
 
 // Rota: Receber a requisição, chamar outro arquivo, devolver uma resposta
 appointementsRouter.get('/', (request, response) => {
-  const appointments = appointmentsRepository.all();
+  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+  const appointments = appointmentsRepository.find();
 
   return response.json(appointments);
 });
 
-appointementsRouter.post('/', (request, response) => {
+appointementsRouter.post('/', async (request, response) => {
   try {
     const { provider, date } = request.body;
 
@@ -22,9 +23,9 @@ appointementsRouter.post('/', (request, response) => {
     // e então define uma hora redonda
     const parsedDate = parseISO(date)
 
-    const createAppointment = new CreateAppointmentService(appointmentsRepository);
+    const createAppointment = new CreateAppointmentService();
 
-    const newAppointment = createAppointment.execute({ provider, date: parsedDate });
+    const newAppointment = await createAppointment.execute({ provider, date: parsedDate });
 
     return response.json(newAppointment);
   } catch (err) {

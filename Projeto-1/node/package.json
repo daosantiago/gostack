@@ -7,11 +7,18 @@
     "build": "tsc",
     "dev:server": "ts-node-dev --transpile-only --inspect=4321 --ignore node_modules src/server.ts",
     "dev:debug": "ts-node-dev --transpile-only --respawn --inspect=4321 --project tsconfig.dev.json src/server.ts",
-    "dev": "ts-node-dev --transpile-only --respawn --project tsconfig.dev.json src/server.ts"
+    "dev": "ts-node-dev --transpile-only --respawn --project tsconfig.dev.json src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "typeorm:migrate": "ts-node-dev ./node_modules/typeorm/cli.js migration:run -d ./src/database/datasource/AppDataSource.ts",
+    "typeorm:revert": "ts-node-dev ./node_modules/typeorm/cli.js migration:revert -d ./src/database/datasource/AppDataSource.ts"
   },
   "dependencies": {
     "date-fns": "^2.28.0",
     "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "tslib": "1.11.2",
+    "typeorm": "^0.3.7",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -28,5 +35,8 @@
     "prettier": "^2.7.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"
+  },
+  "resolutions": {
+    "tslib": "1.11.2"
   }
 }
