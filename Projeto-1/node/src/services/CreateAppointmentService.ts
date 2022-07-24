@@ -33,7 +33,7 @@ class CreateAppointmentService {
 
     const appointmentDate = startOfHour(date);
 
-    const findAppointmentInSameDate = appointmentsRepository.findByDate(appointmentDate);
+    const findAppointmentInSameDate = await appointmentsRepository.findByDate(appointmentDate);
 
     if (findAppointmentInSameDate) {
       // retorna um erro, que será tratado no Routes

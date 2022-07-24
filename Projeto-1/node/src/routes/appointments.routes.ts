@@ -8,9 +8,9 @@ import { getCustomRepository } from "typeorm";
 const appointementsRouter = Router();
 
 // Rota: Receber a requisição, chamar outro arquivo, devolver uma resposta
-appointementsRouter.get('/', (request, response) => {
+appointementsRouter.get('/', async (request, response) => {
   const appointmentsRepository = getCustomRepository(AppointmentsRepository);
-  const appointments = appointmentsRepository.find();
+  const appointments = await appointmentsRepository.find();
 
   return response.json(appointments);
 });
