@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import { compare, hash } from 'bcryptjs'
+import { sign } from 'jsonwebtoken';
 
 import User from '../models/User';
 
@@ -10,7 +11,7 @@ interface RequestDTO {
 }
 
 class AuthenticateUserService {
-  public async execute({ email, password }: RequestDTO): Promise<{ user: User }> {
+  public async execute({ email, password }: RequestDTO): Promise<{ user: User, token: string }> {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne({ where: { email } });
@@ -28,8 +29,15 @@ class AuthenticateUserService {
     }
 
     // Usuário autenticado
+
+    const token = sign({}, '5ce8ccee7e3efd87df12af32c00cea18', { //MD5 aleatório gerado online
+      subject: user.id,
+      expiresIn: '1d',
+    });
+
     return {
       user,
+      token,
     }
 
   }

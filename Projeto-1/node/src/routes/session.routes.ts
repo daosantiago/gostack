@@ -11,7 +11,7 @@ sessionsRouter.post('/', async (request, response) => {
 
     const authenticateUser = new AuthenticateUserService();
 
-    const { user } = await authenticateUser.execute({ email, password });
+    const { user, token } = await authenticateUser.execute({ email, password });
 
     // Solution to delete found in https://bobbyhadz.com/blog/typescript-operand-of-delete-operator-must-be-optional
     const loggedUser: Partial<Pick<User, 'password'>> & Omit<User, 'password'> = user;
@@ -22,7 +22,7 @@ sessionsRouter.post('/', async (request, response) => {
 
     delete loggedUser.password;
 
-    return response.json({ user });
+    return response.json({ user, token });
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
