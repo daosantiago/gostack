@@ -4,7 +4,7 @@
  */
 
 import { v4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 /**
  * Decorators ativados no tsconfig.json "experimentalDecorators" e "emitDecoratorMetadata"
@@ -23,6 +23,12 @@ class Appointment {
 
   @Column('time with time zone')
   date: Date;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
   // Ao usar decoratos não é mais necessário utilizar o construtor
   // Pra não apresentar erro, necessário desabilidar "strictPropertyInitialization": false no tsconfig
