@@ -17,7 +17,7 @@ appointementsRouter.get('/', async (request, response) => {
 
 appointementsRouter.post('/', async (request, response) => {
   try {
-    const { provider, date } = request.body;
+    const { provider_id, date } = request.body;
 
     // Converte a hora recebida em formato string para o formato Date do JS
     // e então define uma hora redonda
@@ -25,7 +25,7 @@ appointementsRouter.post('/', async (request, response) => {
 
     const createAppointment = new CreateAppointmentService();
 
-    const newAppointment = await createAppointment.execute({ provider, date: parsedDate });
+    const newAppointment = await createAppointment.execute({ provider_id, date: parsedDate });
 
     return response.json(newAppointment);
   } catch (err) {
