@@ -5,3 +5,5 @@ build/
 
 temp/*
 !temp/.gitkeep
+tmp/
+!tmp/.gitkeep
