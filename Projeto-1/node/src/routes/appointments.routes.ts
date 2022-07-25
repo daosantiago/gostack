@@ -9,6 +9,8 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const appointementsRouter = Router();
 
+// Usar o middleware definido para autenticação
+// Se não estiver autenticado, nem chega nas rotas
 appointementsRouter.use(ensureAuthenticated);
 
 // Rota: Receber a requisição, chamar outro arquivo, devolver uma resposta
