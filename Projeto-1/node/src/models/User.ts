@@ -4,7 +4,13 @@
  */
 
 import { v4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 /**
  * Decorators ativados no tsconfig.json "experimentalDecorators" e "emitDecoratorMetadata"
@@ -27,12 +33,14 @@ class User {
   @Column()
   password: string;
 
+  @Column()
+  avatar: string;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 }
-
 
 export default User;
