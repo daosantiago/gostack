@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { visitFunctionBody } from 'typescript';
 
 export default createGlobalStyle`
   *{
@@ -11,5 +12,9 @@ export default createGlobalStyle`
   body{
     background: #F0F0F5 ;
     -webkit-font-smoothing: antialiased;
+  }
+
+  body, input, button {
+    font: 16px sans-serif;
   }
 `;
