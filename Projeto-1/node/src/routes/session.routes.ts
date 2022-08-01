@@ -1,7 +1,7 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import AuthenticateUserService from "../services/AuthenticateUserService";
-import User from "../models/User";
+import AuthenticateUserService from '../services/AuthenticateUserService';
+import User from '../models/User';
 
 const sessionsRouter = Router();
 
@@ -14,7 +14,8 @@ sessionsRouter.post('/', async (request, response) => {
     const { user, token } = await authenticateUser.execute({ email, password });
 
     // Solution to delete found in https://bobbyhadz.com/blog/typescript-operand-of-delete-operator-must-be-optional
-    const loggedUser: Partial<Pick<User, 'password'>> & Omit<User, 'password'> = user;
+    const loggedUser: Partial<Pick<User, 'password'>> & Omit<User, 'password'> =
+      user;
 
     // (property) User.password: string
     // The operand of a 'delete' operator must be optional.ts(2790)
@@ -24,7 +25,7 @@ sessionsRouter.post('/', async (request, response) => {
 
     return response.json({ user, token });
   } catch (err) {
-    return response.status(400).json({ error: err.message });
+    return response.status(err.statusCode).json({ error: err.message });
   }
 });
 
