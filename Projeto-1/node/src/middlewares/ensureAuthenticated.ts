@@ -3,6 +3,8 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '../config/auth';
 
+import AppError from '../errors/AppError';
+
 interface TokenPayload {
   iat: number;
   exp: number;
@@ -17,7 +19,7 @@ export default function ensureAuthenticated(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('JWT token is missing');
+    throw new AppError('JWT token is missing', 401);
   }
 
   // Desestruturação com colchetes, pois não retorna um objeto e sim uma lista
@@ -37,6 +39,6 @@ export default function ensureAuthenticated(
     // Essa função deve ser enviada como parâmetro quando o middleware for chamado.
     return next();
   } catch (error) {
-    throw new Error('Invalid JWT token');
+    throw new AppError('Invalid JWT token', 401);
   }
 }
