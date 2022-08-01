@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 
-import express from 'express';
-import { NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 // Necessário instalar express-async-errors para tratativas de erros assincronos para versão do express
 import 'express-async-errors';
 
