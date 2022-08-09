@@ -7,3 +7,4 @@ temp/*
 !temp/.gitkeep
 tmp/
 !tmp/.gitkeep
+Nivel-3/05-primeiro-projeto-react/configfiles*
