@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import githubBg from "../assets/githubBg.svg";
+import { createGlobalStyle } from 'styled-components';
+import githubBg from '../assets/githubBg.svg';
 
 export default createGlobalStyle`
 *{
@@ -15,7 +15,7 @@ body {
 }
 
 body, input, button {
-  font: 16px Roboto sans-serif;
+  font: 16px Roboto;
 }
 
 #root {
