@@ -1,4 +1,10 @@
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
+import React, {
+  InputHTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
 
@@ -11,8 +17,35 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [hasFocus, setHasFocus] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
   const { fieldName, defaultValue, error, registerField } = useField(name);
+
+  const handleContainerClick = useCallback(() => {
+    setHasFocus(true);
+    // eslint-disable-next-line no-unused-expressions
+    inputRef.current?.focus();
+  }, []);
+
+  const handleInputFocus = useCallback(() => {
+    setHasFocus(true);
+  }, []);
+
+  const handleInputBlur = useCallback(() => {
+    setHasFocus(false);
+
+    setIsFilled(!!inputRef.current?.value);
+    // Above we have a shorter version of the same condition as follows
+    // if (inputRef.current) {
+    //   if (inputRef.current.value) {
+    //     setIsFilled(true);
+    //   }
+    // } else {
+    //   setIsFilled(false);
+    // }
+  }, []);
 
   useEffect(() => {
     registerField({
@@ -23,9 +56,19 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container>
+    <Container
+      onClick={handleContainerClick}
+      isFilled={isFilled}
+      hasFocus={hasFocus}
+    >
       {Icon && <Icon size={20} />}
-      <input defaultValue={defaultValue} ref={inputRef} {...rest} />
+      <input
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
+        defaultValue={defaultValue}
+        ref={inputRef}
+        {...rest}
+      />
     </Container>
   );
 };
