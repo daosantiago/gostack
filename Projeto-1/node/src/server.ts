@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 // Necessário instalar express-async-errors para tratativas de erros assincronos para versão do express
 import 'express-async-errors';
 
@@ -12,6 +13,7 @@ import './database';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadCondig.directory));
 app.use(routes);
