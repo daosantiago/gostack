@@ -4,7 +4,8 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import { useAuth } from '../../hooks/AuthContext';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
@@ -23,7 +24,8 @@ const SignIn: React.FC = () => {
   // const inputRef = useRef<HTMLInputElement>(null);
   // const testRef = useRef<React.HTMLAttributes<ReactElement>>();
 
-  const { user, signIn } = useAuth();
+  const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   const validateFields = useCallback(
     async (data: SigInFormData): Promise<void> => {
@@ -46,15 +48,17 @@ const SignIn: React.FC = () => {
 
           formRef.current?.setErrors(errors);
         }
+
+        addToast();
       }
     },
-    [],
+    [addToast],
   );
 
   const handleSubmit = useCallback(
     async (data: SigInFormData) => {
       await validateFields(data);
-      signIn({
+      await signIn({
         email: data.email,
         password: data.password,
       });
