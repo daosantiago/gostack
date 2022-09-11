@@ -7,12 +7,16 @@ export const Container = styled(RectButton)`
   background: #ff9000;
   border-radius: 10px;
 
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
 `;
 
 export const ButtonText = styled.Text`
-  font-family: 'RobotoSlab-Midium';
-  color: #312e38;
+  flex: 1;
   font-size: 18px;
+  color: #312e38;
+
+  text-align: center;
+
+  font-family: 'RobotoSlab-Midium';
 `;
