@@ -13,6 +13,8 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 
+import api from '../../services/api';
+
 import { Container, Title, BackToSignIn, BackToSignInText } from './styles';
 
 interface SignUpFormData {
@@ -46,7 +48,14 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
 
-      //await api.post('/users', data);
+      const response = await api.post('/users', data);
+
+      Alert.alert(
+        'Cadastro realizado.',
+        'Você já pode fazer login na aplicação',
+      );
+
+      navigation.goBack();
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error as Yup.ValidationError);
