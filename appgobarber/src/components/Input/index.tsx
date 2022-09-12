@@ -10,7 +10,6 @@ import { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
 
 import { Container, TextInput, Icon } from './styles';
-import { useIsFocused } from '@react-navigation/native';
 
 interface InputProps extends TextInputProps {
   name: string;
@@ -74,7 +73,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   }, [fieldName, registerField]);
 
   return (
-    <Container hasFocus={hasFocus}>
+    <Container hasFocus={hasFocus} hasError={!!error}>
       <Icon
         name={icon}
         size={20}
