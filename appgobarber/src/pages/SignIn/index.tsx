@@ -10,6 +10,8 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 
+import { useAuth } from '../../hooks/auth';
+
 import * as Yup from 'yup';
 
 import logoImg from '../../assets/logo.png';
@@ -32,6 +34,8 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const navigation = useNavigation<any>();
+
+  const { signIn } = useAuth();
 
   const validateFields = useCallback(
     async (data: SignInFormData): Promise<void> => {
@@ -63,18 +67,19 @@ const SignIn: React.FC = () => {
         );
       }
     },
-    [],
+    [signIn],
   );
 
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
       await validateFields(data);
-      // await signIn({
-      //   email: data.email,
-      //   password: data.password,
-      // });
+
+      await signIn({
+        email: data.email,
+        password: data.password,
+      });
     },
-    [validateFields],
+    [validateFields, signIn],
   );
 
   return (
