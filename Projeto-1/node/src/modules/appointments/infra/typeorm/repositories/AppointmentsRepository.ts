@@ -1,12 +1,17 @@
 import { EntityRepository, Repository } from 'typeorm';
 
-import Appointment from '../infra/typeorm/entities/Appointment';
+import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
+
+import Appointment from '../entities/Appointment';
 
 @EntityRepository(Appointment)
-class AppointmentsRepository extends Repository<Appointment> {
+class AppointmentsRepository
+  extends Repository<Appointment>
+  implements IAppointmentsRepository
+{
   // private appointments: Appointment[] = [];
 
-  public async findByDate(date: Date): Promise<Appointment | null> {
+  public async findByDate(date: Date): Promise<Appointment | undefined> {
     // const findAppointment = this.appointments.find(appointment =>
     //   isEqual(date, appointment.date),
     // );
@@ -14,7 +19,7 @@ class AppointmentsRepository extends Repository<Appointment> {
       where: { date },
     });
 
-    return findAppointment || null;
+    return findAppointment;
   }
 }
 
