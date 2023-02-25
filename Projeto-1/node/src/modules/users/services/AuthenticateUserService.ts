@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm';
-import { compare, hash } from 'bcryptjs';
+import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import authConfig from '../../../config/auth';
+import authConfig from '@config/auth';
 
-import AppError from '../../../shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 
-import User from '../infra/typeorm/User';
+import User from '../infra/typeorm/entities/User';
 
 interface RequestDTO {
   email: string;
@@ -38,7 +38,7 @@ class AuthenticateUserService {
     // Usuário autenticado
 
     const token = sign({}, secret, {
-      //MD5 aleatório gerado online
+      // MD5 aleatório gerado online
       subject: user.id,
       expiresIn,
     });

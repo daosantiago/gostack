@@ -13,7 +13,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import User from '../../../../users/infra/typeorm/User';
+import User from '@modules/users/infra/typeorm/entities/User';
 
 /**
  * Decorators ativados no tsconfig.json "experimentalDecorators" e "emitDecoratorMetadata"

@@ -5,11 +5,12 @@ import cors from 'cors';
 // Necessário instalar express-async-errors para tratativas de erros assincronos para versão do express
 import 'express-async-errors';
 
+// Atalhos possíveis por ter se configurado "paths" e "baseUrl" no arquivo tsconfig.json
+import uploadCondig from '@config/upload';
+import AppError from '@shared/errors/AppError';
 import routes from './routes';
-import uploadCondig from '../../../config/upload';
-import AppError from '../../errors/AppError';
 
-import '../typeorm';
+import '@shared/infra/typeorm';
 
 const app = express();
 
