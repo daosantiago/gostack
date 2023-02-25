@@ -5,12 +5,12 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --transpile-only --inspect=4321 --ignore node_modules src/server.ts",
-    "dev:debug": "ts-node-dev --transpile-only --respawn --inspect=4321 --project tsconfig.dev.json src/server.ts",
-    "dev": "ts-node-dev --transpile-only --respawn --project tsconfig.dev.json src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "typeorm:migrate": "ts-node-dev ./node_modules/typeorm/cli.js migration:run -d ./src/database/datasource/AppDataSource.ts",
-    "typeorm:revert": "ts-node-dev ./node_modules/typeorm/cli.js migration:revert -d ./src/database/datasource/AppDataSource.ts"
+    "dev:server": "ts-node-dev -r tsconfig-paths/register --transpile-only --inspect=4321 --ignore node_modules src/shared/infra/http/server.ts",
+    "dev:debug": "ts-node-dev -r tsconfig-paths/register --transpile-only --respawn --inspect=4321 --project tsconfig.dev.json src/shared/infra/http/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --respawn --project tsconfig.dev.json src/shared/infra/http/server.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm:migrate": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/database/datasource/AppDataSource.ts",
+    "typeorm:revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/database/datasource/AppDataSource.ts"
   },
   "dependencies": {
     "@nestjs/typeorm": "^9.0.0",
@@ -42,6 +42,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^2.0.0",
     "typescript": "^4.7.4"
   }
 }
