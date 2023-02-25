@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { startOfHour } from 'date-fns';
+import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Appointment from '../infra/typeorm/entities/Appointment';
@@ -18,6 +19,7 @@ interface IRequestDTO {
 
 // Somente um método dentro do service
 // Um Service não deve ter acesso ao request ou response
+@injectable()
 class CreateAppointmentService {
   // private appointmentsRepository: AppointmentsRepository;
 
@@ -32,7 +34,10 @@ class CreateAppointmentService {
   // Coloca um private antes da variável pra não precisar criar antes
   // Assim uma variável é criada automaticamente. Pode usar this.appointmentsRepository
   // Desativado a regra "no-useless-constructor": "off",
-  constructor(private appointmentsRepository: IAppointmentsRepository) {}
+  constructor(
+    @inject('AppointmentsRepository')
+    private appointmentsRepository: IAppointmentsRepository,
+  ) {}
 
   public async execute({
     provider_id,
