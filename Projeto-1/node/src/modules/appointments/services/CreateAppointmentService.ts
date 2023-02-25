@@ -1,9 +1,9 @@
+/* eslint-disable camelcase */
 import { startOfHour } from 'date-fns';
-import { getCustomRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 import Appointment from '../infra/typeorm/entities/Appointment';
-import AppointmentsRepository from '../infra/typeorm/repositories/AppointmentsRepository';
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 /**
  * Recebimento de informações
@@ -11,7 +11,7 @@ import AppointmentsRepository from '../infra/typeorm/repositories/AppointmentsRe
  * Acesso ao Repositório
  */
 
-interface RequestDTO {
+interface IRequestDTO {
   provider_id: string;
   date: Date;
 }
@@ -29,29 +29,31 @@ class CreateAppointmentService {
   //   this.appointmentsRepository = appointmentsRepository;
   // }
 
+  // Coloca um private antes da variável pra não precisar criar antes
+  // Assim uma variável é criada automaticamente. Pode usar this.appointmentsRepository
+  // Desativado a regra "no-useless-constructor": "off",
+  constructor(private appointmentsRepository: IAppointmentsRepository) {}
+
   public async execute({
     provider_id,
     date,
-  }: RequestDTO): Promise<Appointment> {
-    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+  }: IRequestDTO): Promise<Appointment> {
+    // const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
 
-    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
-      appointmentDate,
-    );
+    const findAppointmentInSameDate =
+      await this.appointmentsRepository.findByDate(appointmentDate);
 
     if (findAppointmentInSameDate) {
       // retorna um erro, que será tratado no Routes
       throw new AppError('This appointment is already booked');
     }
 
-    const newAppointment = appointmentsRepository.create({
+    const newAppointment = await this.appointmentsRepository.create({
       provider_id,
       date: appointmentDate,
     });
-
-    await appointmentsRepository.save(newAppointment);
 
     return newAppointment;
   }
