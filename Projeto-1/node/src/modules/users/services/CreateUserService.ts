@@ -1,4 +1,5 @@
 import { hash } from 'bcryptjs';
+import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import User from '../infra/typeorm/entities/User';
@@ -15,11 +16,15 @@ interface IResponse {
   token: string;
 }
 
+@injectable()
 class CreateUserService {
   // Coloca um private antes da variável pra não precisar criar antes
   // Assim uma variável é criada automaticamente. Pode usar this.appointmentsRepository
   // Desativado a regra "no-useless-constructor": "off",
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+  ) {}
 
   public async execute({
     name,
