@@ -6,10 +6,10 @@ import cors from 'cors';
 import 'express-async-errors';
 
 import routes from './routes';
-import uploadCondig from './config/upload';
-import AppError from './errors/AppError';
+import uploadCondig from '../../../config/upload';
+import AppError from '../../errors/AppError';
 
-import './database';
+import '../typeorm';
 
 const app = express();
 

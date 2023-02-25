@@ -4,8 +4,16 @@
  */
 
 import { v4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import User from './User';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import User from '../../../../users/infra/typeorm/User';
 
 /**
  * Decorators ativados no tsconfig.json "experimentalDecorators" e "emitDecoratorMetadata"
@@ -43,6 +51,5 @@ class Appointment {
   //   this.date = date;
   // }
 }
-
 
 export default Appointment;
