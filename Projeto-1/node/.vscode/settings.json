@@ -1,0 +1,6 @@
+{
+  "material-icon-theme.files.associations": {
+    "ormconfig.json": "database",
+    "tsconfig.json": "tune"
+  }
+}
