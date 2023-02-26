@@ -10,7 +10,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --respawn --project tsconfig.dev.json src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm:migrate": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/database/datasource/AppDataSource.ts",
-    "typeorm:revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/database/datasource/AppDataSource.ts"
+    "typeorm:revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/database/datasource/AppDataSource.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@nestjs/typeorm": "^9.0.0",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
+    "@types/jest": "^29.4.0",
     "@types/multer": "^1.4.7",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
@@ -42,7 +44,9 @@
     "eslint-import-resolver-typescript": "^3.2.6",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.4.3",
     "prettier": "^2.7.1",
+    "ts-jest": "^29.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"
   }
