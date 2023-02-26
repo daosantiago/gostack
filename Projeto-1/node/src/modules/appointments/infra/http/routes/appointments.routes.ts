@@ -1,13 +1,11 @@
 /* eslint-disable camelcase */
 import { Router } from 'express';
-import { parseISO } from 'date-fns';
-import { container } from 'tsyringe';
-
-import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import AppointmentsController from './controllers/AppointmentsController';
 
 const appointementsRouter = Router();
+const appointmentsController = new AppointmentsController();
 
 // Usar o middleware definido para autenticação
 // Se não estiver autenticado, nem chega nas rotas
@@ -20,21 +18,6 @@ appointementsRouter.use(ensureAuthenticated);
 //   return response.json(appointments);
 // });
 
-appointementsRouter.post('/', async (request, response) => {
-  const { provider_id, date } = request.body;
-
-  // Converte a hora recebida em formato string para o formato Date do JS
-  // e então define uma hora redonda
-  const parsedDate = parseISO(date);
-
-  const createAppointment = container.resolve(CreateAppointmentService);
-
-  const newAppointment = await createAppointment.execute({
-    provider_id,
-    date: parsedDate,
-  });
-
-  return response.json(newAppointment);
-});
+appointementsRouter.post('/', appointmentsController.create);
 
 export default appointementsRouter;
