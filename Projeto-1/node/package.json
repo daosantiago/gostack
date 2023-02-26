@@ -10,7 +10,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --respawn --project tsconfig.dev.json src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm:migrate": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/database/datasource/AppDataSource.ts",
-    "typeorm:revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/database/datasource/AppDataSource.ts"
+    "typeorm:revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/database/datasource/AppDataSource.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@nestjs/typeorm": "^9.0.0",
