@@ -4,10 +4,18 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import User from '../../typeorm/entities/User';
 
-interface NoPassUser {}
+interface LoggedUser {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  avatar: string;
+  created_at: Date;
+  updated_at: Date;
+}
 
 export default class SessionsController {
-  public async create(request, response): Promise<Response> {
+  public async create(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
 
     const authenticateUser = container.resolve(AuthenticateUserService);
@@ -15,8 +23,9 @@ export default class SessionsController {
     const { user, token } = await authenticateUser.execute({ email, password });
 
     // Solution to delete found in https://bobbyhadz.com/blog/typescript-operand-of-delete-operator-must-be-optional
-    const loggedUser: Partial<Pick<User, 'password'>> & Omit<User, 'password'> =
-      user;
+    // const loggedUser: Partial<Pick<User, 'password'>> & Omit<User, 'password'> =
+    //   user;
+    const loggedUser: LoggedUser = user;
 
     // (property) User.password: string
     // The operand of a 'delete' operator must be optional.ts(2790)
