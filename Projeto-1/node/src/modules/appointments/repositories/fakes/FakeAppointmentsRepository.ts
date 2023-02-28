@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { v4 } from 'uuid';
+import { isEqual } from 'date-fns';
 
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
@@ -29,8 +30,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
   // https://app.rocketseat.com.br/node/nivel-04/group/arquitetura-e-ddd/lesson/reescrevendo-repositorios
 
   public async findByDate(date: Date): Promise<Appointment | undefined> {
-    const fondAppointment = this.appointments.find(
-      appointment => appointment.date === date,
+    const fondAppointment = this.appointments.find(appointment =>
+      isEqual(appointment.date, date),
     );
 
     return fondAppointment;
