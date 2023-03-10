@@ -8,6 +8,7 @@ import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IStorageProvider from '@shared/container/Providers/StorageProvider/models/IStorageProvider';
 
 interface Request {
   user_id: string;
@@ -33,16 +34,12 @@ class UpdateUserAvatarService {
 
     if (user.avatar) {
       // Deletar avatar anterior
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      // Retorna o estado de um arquivo, caso ele exista
-      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
-
-      if (userAvatarFileExists) {
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.storageProvider.deleteFile(user.avatar);
     }
 
-    user.avatar = avatarFilename;
+    const fileName = await this.storageProvider.saveFile(avatarFilename);
+
+    user.avatar = fileName;
 
     await this.usersRepository.save(user);
 
