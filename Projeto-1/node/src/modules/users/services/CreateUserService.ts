@@ -1,9 +1,9 @@
-import { hash } from 'bcryptjs';
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequestDTO {
   name: string;
@@ -24,6 +24,9 @@ class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -38,7 +41,7 @@ class CreateUserService {
       throw new AppError('Email addres has been already used');
     }
 
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await this.hashProvider.generatedHash(password);
 
     const user = await this.usersRepository.create({
       name,
@@ -46,16 +49,16 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    // Solution to delete found in https://bobbyhadz.com/blog/typescript-operand-of-delete-operator-must-be-optional
-    const savedUser: Partial<Pick<User, 'password'>> & Omit<User, 'password'> =
-      user;
+    // // Solution to delete found in https://bobbyhadz.com/blog/typescript-operand-of-delete-operator-must-be-optional
+    // const savedUser: Partial<Pick<User, 'password'>> & Omit<User, 'password'> =
+    //   user;
 
-    // (property) User.password: string
-    // The operand of a 'delete' operator must be optional.ts(2790)
-    // Solution above
-    delete savedUser.password;
+    // // (property) User.password: string
+    // // The operand of a 'delete' operator must be optional.ts(2790)
+    // // Solution above
+    // delete savedUser.password;
 
-    return savedUser;
+    return user;
   }
 }
 
